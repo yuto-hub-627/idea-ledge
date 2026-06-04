@@ -113,7 +113,8 @@ function Canvas() {
               ? '/api/research-ideas'
               : '/api/organize-ideas'
 
-        const res = await fetch(`http://localhost:3001${endpoint}`, {
+        const base = import.meta.env.DEV ? 'http://localhost:3001' : ''
+        const res = await fetch(`${base}${endpoint}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nodes: ideaNodes, condition: organizeCondition }),
