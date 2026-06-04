@@ -10,7 +10,7 @@ import {
   ReactFlowProvider,
   useReactFlow,
 } from '@xyflow/react'
-import type { Connection, Node } from '@xyflow/react'
+import type { Connection, Node, Edge } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 
 import { IdeaNode } from './components/IdeaNode'
@@ -30,7 +30,7 @@ const uid = () => `idea-${nextId++}`
 function Canvas() {
   const [mode, setMode] = useState<AppMode>('canvas')
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([])
-  const [edges, setEdges, onEdgesChange] = useEdgesState([])
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([])
   const [loading, setLoading] = useState(false)
   const [organizeCondition, setOrganizeCondition] = useState('')
   const { screenToFlowPosition, fitView } = useReactFlow()
@@ -72,7 +72,7 @@ function Canvas() {
   const onConnect = useCallback(
     (params: Connection) =>
       setEdges((eds) =>
-        addEdge({ ...params, type: 'smoothstep', style: { stroke: '#a78bfa', strokeWidth: 2 } }, eds),
+        addEdge({ ...params, type: 'smoothstep', style: { stroke: '#a78bfa', strokeWidth: 2 } } as Edge, eds),
       ),
     [setEdges],
   )
